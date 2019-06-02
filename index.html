@@ -22,6 +22,7 @@
 
 <body>
     <script>
+        // Firebase
         $(function () {
             var firebaseConfig = {
                 apiKey: "AIzaSyBCIOcXvw24rY1Bs8ir8Q4KZYm2rLqGXZw",
@@ -34,24 +35,28 @@
             };
 
             firebase.initializeApp(firebaseConfig);
+
             var database = firebase.database();
 
-            var name = "";
-            var destination = "";
-            var firstTrain = "";
-            var frequency = "";
-            var firstTrainConverted = "";
+            // var name = "";
+            // var destination = "";
+            // var firstTrain = "";
+            // var frequency = "";
+            // var firstTrainConverted = "";
 
-
+            // Input from button click
             $("#button").on("click", function (event) {
                 event.preventDefault();
+
+                //values from the text boxes
                 name = $("#name-input").val().trim();
                 destination = $("#destination-input").val().trim();
                 firstTrain = $("#firstTrain-input").val().trim();
                 frequency = $("#frequency-input").val().trim();
                 firstTrainConverted = moment(firstTrain, "HH:mm").format("HH:mm");
                 console.log("pushing to database");
-                // <results
+
+                // code for the push
                 database.ref().push({
                     name: name,
                     destination: destination,
@@ -61,40 +66,69 @@
                     dateAdded: firebase.database.ServerValue.TIMESTAMP
                 });
             });
-
+            //firebase watcher
             database.ref().on("child_added", function (snapshot) {
-                console.log("child added triggered");
+                // console.log("child added triggered");
                 // storing the snapshot.val() in a variable for convenience
-                var train = snapshot.val();
+                var newTrain = snapshot.val().name;
+                var newDestination = snapshot.val().destination;
+                var newFirstTrain = snapshot.val().firstTrain;
+                var newFrequency = snapshot.val().frequency;
+
+                //Time converted not listed because it is an equation
 
                 // Console.loging the last user's data
-                console.log(train.name);
-                console.log(train.destination);
-                console.log(train.firstTrain);
-                console.log(train.frequency);
-                console.log(firstTrainConverted);
+                // console.log(train.name);
+                // console.log(train.destination);
+                // console.log(train.firstTrain);
+                // console.log(train.frequency);
+                // console.log(firstTrainConverted);
 
                 // Change the HTML to reflect
-                var row = $('<tr>');
-                row.append($('<td>').text(train.name));
-                row.append($('<td>').text(train.destination));
+                // var row = $('<tr>');
+                // row.append($('<td>').text(train.name));
+                // row.append($('<td>').text(train.destination));
 
-                row.append($('<td>').text(train.frequency));
+                // row.append($('<td>').text(train.frequency));
 
-                    // when the next train comes
-                    // what time did the first train come and how long ago was that
-                    // what time is it now
-                    var currentTime = moment();
-                    var firstTrainTime = moment(train.firstTrain);
-                    var difference = moment.duration(currentTime.diff(firstTrainTime)).get("minutes");
-                    var remainder = difference % train.frequency;
-                    var nextTrain = train.frequency - remainder;
-                    var nextTrainTime = currentTime.add(nextTrain, 'minutes');
-                    console.log("next train",nextTrainTime.format("MMM Do YY, HH:mm"));
-                row.append($('<td>').text("MATH"));
+                // when the next train comes
+                // what time did the first train come and how long ago was that
+                // what time is it now
+                //time now
 
-                row.append($('<td>').text("MORE MATH"));
-                $('.table').append(row);
+                //First Train Time
+                var firstTrainTime = moment(newFirstTrain, "HH:mm")
+                console.log("firstTrainTime");
+                // Current time
+                var currentTime = moment();
+                console.log("currentTime");
+                //difference between times
+                var difference = moment().diff(moment(firstTrainTime), "minutes");
+                console.log("difference");
+                //time apart (remainder)
+                var remainder = difference % newFrequency;
+                console.log("remainder");
+                //minute until train
+                var nextTrain = newFrequency - remainder;
+                //next train
+                var nextTrainTime = moment().add(nextTrain, "minutes");
+                console.log("next train", nextTrainTime.format("MMM Do YY, HH:mm"));
+                var catchTrain = moment(nextTrainTime).format("HH:mm");
+
+                //display on page
+                $("#all-display").append(
+                    ' <tr><td>' + newTrain +
+                    ' </td><td>' + newDestination +
+                    ' </td><td>' + newFrequency +
+                    ' </td><td>' + catchTrain +
+                    ' </td><td>' + nextTrain + ' </td></tr>');
+
+
+
+                // row.append($('<td>').text("MATH"));
+
+                // row.append($('<td>').text("MORE MATH"));
+                // $('.table').append(row);
 
                 // var tRemainder = diffTime % tFrequency;
                 // console.log(tRemainder);
@@ -105,6 +139,11 @@
             });
         });
     </script>
+
+
+
+
+
     <!-- <span id="click-value"></span> -->
     <div class="container">
         <div class="jumbotron text-center header">
