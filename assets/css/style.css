@@ -1,13 +1,13 @@
 /* carousel */
 .carousel .item {
-    height: 300px;
+    height:350px;
   }
-  .item img {
-      position: absolute;
-      top: 0;
-      left: 0;
-      min-height: 300px;
+body {
+background-color: #BFBFBF!important;
+
 }
+
+
 
 /* text-input group */
 .form-group{
@@ -15,22 +15,30 @@
       margin-left: 15%;
 }
 .btn-primary {
-  background-color: grey;
-  margin-left: 50%;
-  margin-right: 50%;
-  size: 50px;
+  background-color: grey !important;
+  margin-left: 45%;
+  
+  border-color: grey !important;
 
 }
-#all-display{
-  margin-right: 200px;
-  margin-left: 200px;
-}
+
 .jumbotron {
-  padding-top: 30px;
-  padding-bottom: 30px;
+  padding-top: 10px !important;
+  padding-bottom: 30px !important;
   margin-bottom: 30px;
-  color: inherit;
+  margin-left: 80px !important;
+  margin-right: 80px !important;
+  background-color: #EAEAEA!important;
+  text-align: center;
 }
 body{
   background-color: bisque;
+}
+
+h1 {
+  font-size: 42px !important;
+  text-align: center !important;
+}
+#name-display{
+align: center !important;
 }
