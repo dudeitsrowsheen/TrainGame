@@ -1,22 +1,17 @@
-/* carousel */
-.carousel .item {
-    height:350px;
-  }
+
 body {
 background-color: #BFBFBF!important;
 
 }
 
-
-
 /* text-input group */
 .form-group{
-      margin-right: 15%;
-      margin-left: 15%;
+      margin-right: 25%;
+      margin-left: 25%;
 }
 .btn-primary {
   background-color: grey !important;
-  margin-left: 45%;
+margin-left: 27%;
   
   border-color: grey !important;
 
@@ -38,7 +33,21 @@ body{
 h1 {
   font-size: 42px !important;
   text-align: center !important;
+  margin-top: 50000%;
 }
-#name-display{
-align: center !important;
+
+/* .heading{
+  font-size: 50px;
+  border: 80px;
+  margin-top: 500px;
+} */
+
+
+.train{
+  margin-left: 25%;
+  margin-right: 25%;
+  width: 732px;
+  height: 375px;
+  margin-top: 50px;
+  padding-top: 75px;
 }
